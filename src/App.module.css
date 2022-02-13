@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.body {
+  margin: 0;
+  padding: 0;
+}
+
+.message:hover {
+  color: #636363;
+  text-decoration: none;
+  color: green;
+
+}
