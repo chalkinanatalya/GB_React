@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from "@mui/material/Button";
+import Input from "@mui/material/Input";
 
 export const Form = ({ addMessage }) => {
   const [text, setText] = useState("");
@@ -9,12 +11,15 @@ export const Form = ({ addMessage }) => {
   };
   return (
     <form onSubmit={handleText}>
-      <input
+      <Input
         type="text"
         value={text}
+        autoFocus={true}
         onChange={(ev) => setText(ev.target.value)}
       />
-      <button type="submit">Send</button>
+      <Button variant="contained" type="submit" color="success" size="small">
+        Send
+      </Button>
     </form>
   );
 };
