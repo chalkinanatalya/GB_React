@@ -2,64 +2,51 @@ import { nanoid } from "nanoid";
 
 export const chatOne = [
   {
-    id: nanoid(),
-    author: "bot",
     question: "1",
-    text: "It is certain",
+    text: "Answer 1",
   },
   {
-    id: nanoid(),
-    author: "bot",
     question: "2",
-    text: "No chanses",
+    text: "Answer 2",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "3",
-    text: "It is decidedly so",
+    text: "Answer 3",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "4",
-    text: "I don't know the answer, try another number",
+    text: "Answer 4",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "5",
-    text: "Do not count on it",
+    text: "Answer 5",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "6",
-    text: "My sources say no",
+    text: "Answer 6",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "7",
-    text: "Outlook not so good",
+    text: "Answer 7",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "8",
-    text: "Signs point to yes",
+    text: "Answer 8",
   },
 
   {
-    id: nanoid(),
-    author: "bot",
     question: "9",
-    text: "You'll get it",
+    text: "Answer 9",
   },
 ];
+
+for (let i = 0; i < chatOne.length; i++) {
+  chatOne[i].id = nanoid();
+  chatOne[i].author = "Bot #1";
+}

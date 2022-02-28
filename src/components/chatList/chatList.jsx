@@ -5,37 +5,23 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import { Link } from "react-router-dom";
 
-export const ChatList = function () {
-  return (
-    <>
-      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        <nav aria-label="main mailbox folders">
-          <List>
-            <ListItem disablePadding>
+export const ChatList = ({ chats, chatId }) => (
+  <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+    <nav aria-label="main mailbox folders">
+      <List>
+        {Object.keys(chats).map((id, i) => (
+          <ListItem disablePadding key={i}>
+            <Link to={`/chats/${id}`}>
               <ListItemButton>
-                <ListItemText primary="Chat 1" />
+                <ListItemText primary={chats[id].name} />
               </ListItemButton>
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText primary="Chat 2" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </nav>
+            </Link>
+          </ListItem>
+        ))}
         <Divider />
-        <nav aria-label="secondary mailbox folders">
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText primary="Chat 3" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </nav>
-      </Box>
-    </>
-  );
-};
+      </List>
+    </nav>
+  </Box>
+);

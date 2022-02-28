@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 
-export const botAnswers = [
+export const chatZero = [
   {
     question: "1",
     text: "It is certain",
@@ -46,7 +46,7 @@ export const botAnswers = [
   },
 ];
 
-for (let i = 0; i < botAnswers.length; i++) {
-  botAnswers[i].id = nanoid();
-  botAnswers[i].author = "bot";
+for (let i = 0; i < chatZero.length; i++) {
+  chatZero[i].id = nanoid();
+  chatZero[i].author = "Bot #0";
 }
