@@ -1,0 +1,11 @@
+.message {
+  text-align: center;
+  color: #636363;
+
+}
+
+.message:hover {
+  text-decoration: none;
+  color: green;
+
+}

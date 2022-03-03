@@ -4,76 +4,16 @@ import { Form } from "./components/Form/Form";
 import { Message } from "./components/Message/Message.jsx";
 import { MessageList } from "./components/MessageList/MessageList";
 import { nanoid } from "nanoid";
+import Typography from "@mui/material/Typography";
+import Rating from "@mui/material/Rating";
+import { botAnswers } from "./chats/botAnswers";
+import { ChatList } from "./components/chatList/chatList";
 
 const defaultMessages = [
   {
     id: nanoid(),
     author: "bot",
     text: "Choose a number from 1 to 9 and you'll get your answer",
-  },
-];
-
-const botAnswers = [
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "1",
-    text: "It is certain",
-  },
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "2",
-    text: "No chanses",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "3",
-    text: "It is decidedly so",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "4",
-    text: "I don't know the answer, try another number",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "5",
-    text: "Do not count on it",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "6",
-    text: "My sources say no",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "7",
-    text: "Outlook not so good",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "8",
-    text: "Signs point to yes",
-  },
-
-  {
-    id: nanoid(),
-    author: "bot",
-    question: "9",
-    text: "You'll get it",
   },
 ];
 
@@ -98,7 +38,7 @@ export const App = () => {
         clearTimeout(timeout);
       };
     }
-  });
+  }, [messages]);
 
   const addMessages = ({ text, author }) => {
     setMessages([
@@ -113,13 +53,18 @@ export const App = () => {
 
   return (
     <>
-      <div className={style.background}>
+      <div className={style.container}>
         <Message />
-        <MessageList messages={messages} />
-        <Form addMessage={addMessages} />
+        <div className={style.allChats}>
+          <ChatList />
+          <div>
+            <MessageList messages={messages} />
+            <Form addMessage={addMessages} />
+            <Typography component="legend">Rate us!</Typography>
+            <Rating name="simple-controlled" />
+          </div>
+        </div>
       </div>
     </>
   );
 };
-
-export default App;
