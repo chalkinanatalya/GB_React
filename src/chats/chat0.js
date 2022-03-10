@@ -48,5 +48,4 @@ export const chatZero = [
 
 for (let i = 0; i < chatZero.length; i++) {
   chatZero[i].id = nanoid();
-  chatZero[i].author = "Bot #0";
 }

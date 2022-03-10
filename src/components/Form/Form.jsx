@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/Button";
 import Input from "@mui/material/Input";
+import SendIcon from '@mui/icons-material/Send';
 
-export const Form = ({ addMessage }) => {
+export const Form = ({ addMessage, author}) => {
   const [text, setText] = useState("");
+
   const handleText = (ev) => {
     ev.preventDefault();
-    addMessage({ text, author: "User" });
+    addMessage({ text, author: author });
     setText("");
   };
   return (
+    <>
     <form onSubmit={handleText}>
       <Input
         type="text"
@@ -17,9 +20,10 @@ export const Form = ({ addMessage }) => {
         autoFocus={true}
         onChange={(ev) => setText(ev.target.value)}
       />
-      <Button variant="contained" type="submit" color="success" size="small">
-        Send
-      </Button>
+      <IconButton aria-label="send" size="small" type="submit">
+        <SendIcon />
+      </IconButton>
     </form>
+    </>
   );
 };
