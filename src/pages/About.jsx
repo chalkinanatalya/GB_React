@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import { StoreState } from '../store';
+
 import { toggleVisible } from '../store/profile/actions';
 
 export const About = (props) => {
