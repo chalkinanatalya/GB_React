@@ -1,51 +1,100 @@
-import { React } from "react";
-import style from "../App.module.css";
-import { Message } from "../components/Message/Message";
+import React, { useCallback, useEffect } from "react";
+import { useParams, Redirect } from "react-router-dom";
+import { useSelector, shallowEqual } from "react-redux";
+import { nanoid } from 'nanoid';
+
+import { getProfileName } from "../store/profile/selectors";
+import { MessageList } from '../components/MessageList/MessageList';
 import { ChatList } from "../components/ChatList/ChatList";
-import { chatZero } from "../chats/chat0";
-import { chatOne } from "../chats/chat1";
-import { chatTwo } from "../chats/chat2";
-import { chatThree } from "../chats/chat3";
-import { Chat } from "../components/Chat/Chat";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Form } from '../components/Form/Form';
+import { chatZero } from '../chats/chat0';
+import { chatOne } from '../chats/chat1';
 
-export const initialChats = {
-  id0: {
-    name: "Chat0",
+const initialChats = [
+  {
+    name: "chat0",
     messages: chatZero,
+    author:  "Bot #0",
   },
-  id1: {
-    name: "Chat1",
+  {
+    name: "chat1",
     messages: chatOne,
-  },
-  id2: {
-    name: "Chat2",
-    messages: chatTwo,
-  },
-  id3: {
-    name: "Chat3",
-    messages: chatThree,
-  },
-};
+    author: "Bot #1",
+  }, 
+]
 
-export const Chats = () => {
-  const { path } = useRouteMatch();
+export const Chats = ({ messages, setMessages, addChat, deleteChat }) => {
+  const chatId = useParams().chatId;
+  const chatName = useParams().chatName;
+  const author = useSelector(getProfileName, shallowEqual);
+
+  const addMessages = useCallback(
+    ({ text, author }) => {
+      if (chatId) {
+        setMessages((prevMessages) => {
+          return {
+            ...prevMessages,
+            [chatId]: [
+              ...prevMessages[chatId],
+              {
+                id: nanoid(),
+                author,
+                text,
+              },
+            ],
+          };
+        });
+      }
+    },
+    [chatId, setMessages]
+  );
+
+  useEffect(() => {
+    if (
+      chatId &&
+      messages[chatId]?.length &&
+      messages[chatId][messages[chatId].length - 1].author === author
+    ) {
+      let message;
+      let user;
+      for (const chat of initialChats) {
+        if (chatName === chat.name) {
+          message = chat.messages.find(
+          (message) =>
+            message.question === messages[chatId][messages[chatId].length - 1].text).text;
+          user = chat.author;
+          break;
+        } else {
+          message = "Im BOT";
+          user = "BOT";
+        };
+      }
+      const timeout = setTimeout(
+        () =>
+        addMessages({
+            text: message,
+            author: user,
+          }),
+        1000
+      );
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [messages, chatId, addMessages]);
+
+  if (chatId && !messages[chatId]) {
+    return <Redirect to="/chats" />;
+  }
+
   return (
     <>
-      <div className={style.container}>
-        <Message />
-        <div className={style.allChats}>
-          <ChatList chats={initialChats} />
-          <Switch>
-            <Route exact path={path}>
-              <h3>Please select a chat.</h3>
-            </Route>
-            <Route path={`${path}/:chatId`}>
-              <Chat chats={initialChats} />
-            </Route>
-          </Switch>
-        </div>
-      </div>
+      <ChatList addChat={addChat} deleteChat={deleteChat} />
+      <MessageList
+        messages={chatId ? messages[chatId] : []}
+      />
+      <Form addMessage={addMessages} author={author}/>
     </>
   );
 };
