@@ -22,7 +22,7 @@ export const messageReducer = (state = initialChatList, action) => {
       return {
         ...state,
         [action.chatId]: [],
-      }
+      };
     }
     default: {
       return state;

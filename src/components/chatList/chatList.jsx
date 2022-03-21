@@ -3,18 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
 
-import { createMessageChat, deleteMessageChat } from "../../store/messages/actions";
+import {
+  createMessageChat,
+  deleteMessageChat,
+} from "../../store/messages/actions";
 import { addChat, deleteChat } from "../../store/chatlist/actions";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from "@mui/material/ListItemIcon";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ListItemButton from "@mui/material/ListItemButton";
 
 export const ChatList = () => {
   const dispatch = useDispatch();
@@ -23,7 +26,7 @@ export const ChatList = () => {
 
   const handleAddChat = (name) => {
     const id = nanoid();
-    dispatch(addChat({id, name}));
+    dispatch(addChat({ id, name }));
     dispatch(createMessageChat(id));
     setValue("");
   };
@@ -43,16 +46,28 @@ export const ChatList = () => {
       <button onClick={() => handleAddChat(value)}>add chat</button>
       <nav aria-label="main mailbox folders">
         <List>
-        <Divider />
+          <Divider />
           {chatList.map((chat) => (
-            <ListItem button component={Link} to={`/chats/${chat.id}/${chat.name}`} key={chat.id} disablePadding>
+            <ListItem
+              button
+              component={Link}
+              to={`/chats/${chat.id}/${chat.name}`}
+              key={chat.id}
+              disablePadding
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <MailOutlineIcon />
                 </ListItemIcon>
                 <ListItemText primary={chat.name} />
               </ListItemButton>
-              <IconButton aria-label="delete" onClick={() => handleDeleteChat(chat.id)} size="small"><DeleteIcon fontSize="small"/></IconButton >
+              <IconButton
+                aria-label="delete"
+                onClick={() => handleDeleteChat(chat.id)}
+                size="small"
+              >
+                <DeleteIcon fontSize="small" />
+              </IconButton>
             </ListItem>
           ))}
         </List>

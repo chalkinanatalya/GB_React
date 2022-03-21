@@ -6,8 +6,7 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { persistor } from "./store";
 
-
-export const App = () => {  
+export const App = () => {
   return (
     <PersistGate persistor={persistor}>
       <Suspense fallback={<div>Загрузка...</div>}>

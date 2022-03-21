@@ -19,14 +19,22 @@ export const deleteMessageChat = (chatId) => ({
   chatId,
 });
 
-let timerId; 
+let timerId;
 export const addMessageWithThunk = (message, answer) => (dispatch) => {
   dispatch(addMessage(message));
 
-  if(timerId) {clearTimeout(timerId)};
-  timerId = setTimeout(() => dispatch(addMessage({
-    chatId: message.chatId,
-    text: answer.botAnswer,
-    author: answer.botName,
-  })), 1000);
-}
+  if (timerId) {
+    clearTimeout(timerId);
+  }
+  timerId = setTimeout(
+    () =>
+      dispatch(
+        addMessage({
+          chatId: message.chatId,
+          text: answer.botAnswer,
+          author: answer.botName,
+        })
+      ),
+    1000
+  );
+};

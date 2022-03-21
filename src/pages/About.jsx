@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from "react";
+import { connect } from "react-redux";
 
-import { toggleVisible } from '../store/profile/actions';
+import { toggleVisible } from "../store/profile/actions";
 
 export const About = (props) => {
   return (

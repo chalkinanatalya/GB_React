@@ -8,7 +8,7 @@ import { Answer } from "./Answer";
 
 import IconButton from "@mui/material/Button";
 import Input from "@mui/material/Input";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 
 export const Form = () => {
   const chatId = useParams().chatId;
@@ -17,25 +17,27 @@ export const Form = () => {
 
   const [text, setText] = useState("");
   const dispatch = useDispatch();
-  
+
   const handleText = (ev) => {
     ev.preventDefault();
-    dispatch(addMessageWithThunk({ chatId, text, author }, Answer(chatName, text)));
+    dispatch(
+      addMessageWithThunk({ chatId, text, author }, Answer(chatName, text))
+    );
     setText("");
   };
   return (
     <>
-    <form onSubmit={handleText}>
-      <Input
-        type="text"
-        value={text}
-        autoFocus={true}
-        onChange={(ev) => setText(ev.target.value)}
-      />
-      <IconButton aria-label="send" size="small" type="submit">
-        <SendIcon />
-      </IconButton>
-    </form>
+      <form onSubmit={handleText}>
+        <Input
+          type="text"
+          value={text}
+          autoFocus={true}
+          onChange={(ev) => setText(ev.target.value)}
+        />
+        <IconButton aria-label="send" size="small" type="submit">
+          <SendIcon />
+        </IconButton>
+      </form>
     </>
   );
 };

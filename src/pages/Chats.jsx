@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 import { selectMessages } from "../store/messages/selectors";
 
-import { MessageList } from '../components/MessageList/MessageList';
+import { MessageList } from "../components/MessageList/MessageList";
 import { ChatList } from "../components/ChatList/ChatList";
-import { Form } from '../components/Form/Form';
+import { Form } from "../components/Form/Form";
 
 export const Chats = () => {
   const chatId = useParams().chatId;
@@ -18,11 +18,9 @@ export const Chats = () => {
 
   return (
     <>
-      <ChatList/>
-      <MessageList
-        messages={chatId ? messages[chatId] : []}
-      />
-      <Form/>
+      <ChatList />
+      <MessageList messages={chatId ? messages[chatId] : []} />
+      <Form />
     </>
   );
 };
