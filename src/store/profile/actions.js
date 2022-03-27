@@ -10,4 +10,4 @@ export function userName(value) {
     type: USER_NAME,
     user: value,
   };
-};
+}

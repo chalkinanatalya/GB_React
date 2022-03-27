@@ -22,7 +22,11 @@ export const Profile = (props) => {
         Your name is <b>{name}</b>
       </p>
       <span>This is awsome checkbox: </span>
-      <input type="checkbox" checked={visible} onChange={() => dispatch(toggleVisible)} />
+      <input
+        type="checkbox"
+        checked={visible}
+        onChange={() => dispatch(toggleVisible)}
+      />
       <br />
       <button onClick={() => dispatch(toggleVisible)}>change profile</button>
     </>

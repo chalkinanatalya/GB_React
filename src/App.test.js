@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { App } from "./App";
 import ReactDOM from "react-dom";
 import React from "react";
-import { botAnswers } from "./chats/botAnswers";
 import { MessageList } from "./components/MessageList/MessageList";
 import { Form } from "./components/Form/Form";
 
