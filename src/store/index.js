@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 import { profileReducer } from "./profile/reducer";
 import { chatListReducer } from "./chatlist/reducer";
 import { messageReducer } from "./messages/reducer";
+import { articlesReducer } from "./articles/reducer";
 
 export const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -13,9 +14,11 @@ export const composeEnhancers =
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["profile", "articles"],
 };
 
 const rootReducer = combineReducers({
+  articles: articlesReducer,
   messages: messageReducer,
   profile: profileReducer,
   chatlist: chatListReducer,

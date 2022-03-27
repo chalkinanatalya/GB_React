@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { Profile } from "../../pages/Profile";
+import { Articles } from "../../pages/Articles";
 import { Chats } from "../../pages/Chats";
 import { ChatList } from "../ChatList/ChatList";
 import { Home } from "../../pages/Home";
@@ -23,6 +24,7 @@ export const Main = () => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/profile" component={Profile} />
+      <Route path="/articles" component={Articles} />
 
       <Route path="/chats">
         <Box sx={{ width: "100%", maxWidth: 450, bgcolor: "background.paper" }}>
