@@ -14,7 +14,7 @@ export const composeEnhancers =
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["profile", "articles"],
+  blacklist: ["articles"],
 };
 
 const rootReducer = combineReducers({

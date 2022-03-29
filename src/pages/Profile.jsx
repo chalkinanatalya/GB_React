@@ -1,12 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-import { toggleVisible, userName } from "../store/profile/actions";
+import { toggleVisible, userName, authProfile } from "../store/profile/actions";
 import { getProfileName, getProfileVisible } from "../store/profile/selectors";
 
 export const Profile = (props) => {
   const visible = useSelector(getProfileVisible, shallowEqual);
   const name = useSelector(getProfileName, shallowEqual);
+  const isAuth = useSelector(state => state.profile.isAuth);
   const dispatch = useDispatch();
 
   return (
@@ -29,6 +30,12 @@ export const Profile = (props) => {
       />
       <br />
       <button onClick={() => dispatch(toggleVisible)}>change profile</button>
+      <p>{name}</p>
+      {isAuth ? (
+        <button onClick={() => dispatch(authProfile(false))}>Sign Out</button>
+      ) : (
+        <button onClick={() => props.history.push("/signin")}>Sign In</button>
+      )}
     </>
   );
 };
