@@ -5,6 +5,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import ChatIcon from "@mui/icons-material/Chat";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ArticleIcon from "@mui/icons-material/Article";
 import CottageIcon from "@mui/icons-material/Cottage";
 import Box from "@mui/material/Box";
 
@@ -37,6 +38,12 @@ export const Header = () => {
           icon={<ChatIcon />}
           component={Link}
           to="/chats"
+        />
+        <BottomNavigationAction
+          label="Articles"
+          icon={<ArticleIcon />}
+          component={Link}
+          to="/articles"
         />
       </BottomNavigation>
     </Box>
