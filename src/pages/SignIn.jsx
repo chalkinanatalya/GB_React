@@ -1,35 +1,39 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { authProfile } from "../store/profile/actions";
-import { Redirect } from "react-router-dom";
 
-export const SignIn = (props) => {
-  const [login, setLogin] = useState("");
+import { Link } from "react-router-dom";
+import { logIn } from "../services/firebase";
+
+export const SignIn = () => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (login !== "gb" || password !== "gb") {
-      setError("Invalid login or password");
-    } else {
-      dispatch(authProfile(true));
-      //   return <Redirect to="/chats" />;
-      props.history.push("/chats");
+    try {
+      await logIn(email, password);
+    } catch (err) {
+      setError(err.message);
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Login:</p>
-      <input type="text" onChange={(e) => setLogin(e.target.value)} />
-      <p>Password:</p>
-      <input type="password" onChange={(e) => setPassword(e.target.value)} />
+    <>
+      <h1>Login Page</h1>
+      <form onSubmit={handleSubmit}>
+        <p>Login:</p>
+        <input type="email" onChange={(e) => setEmail(e.target.value)} />
+        <p>Password:</p>
+        <input type="password" onChange={(e) => setPassword(e.target.value)} />
+        <br />
+        <button type="submit">Login</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </form>
       <br />
-      <button type="submit">Login</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
+      <Link to="/signup">
+        <button type="submit">Sign Up</button>
+      </Link>
+    </>
   );
 };

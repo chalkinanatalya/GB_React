@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-
-import { addMessageWithThunk } from "../../store/messages/actions";
+// import { addMessageWithThunk } from "../../store/messages/actions";
 import { getProfileName } from "../../store/profile/selectors";
 import { Answer } from "./Answer";
 
 import IconButton from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import SendIcon from "@mui/icons-material/Send";
+import { set } from "firebase/database";
+import { getMessagesListRefId } from "../../services/firebase";
+import { nanoid } from "nanoid";
 
 export const Form = () => {
   const chatId = useParams().chatId;
@@ -18,16 +20,25 @@ export const Form = () => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
 
-  const handleText = (ev) => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
-    dispatch(
-      addMessageWithThunk({ chatId, text, author }, Answer(chatName, text))
-    );
+    if (chatId) {
+      const id = nanoid();
+      set(getMessagesListRefId(chatId, id), {
+        id,
+        text,
+        author,
+      });
+      // dispatch(
+      //   addMessageWithThunk({ chatId, text, author }, Answer(chatName, text))
+      // );
+    }
+
     setText("");
   };
   return (
     <>
-      <form onSubmit={handleText}>
+      <form onSubmit={handleSubmit}>
         <Input
           type="text"
           value={text}

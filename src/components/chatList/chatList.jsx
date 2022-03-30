@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
-
+import { initChatFB } from "../../store/chatlist/actions";
 import {
-  createMessageChat,
-  deleteMessageChat,
-} from "../../store/messages/actions";
-import { addChat, deleteChat } from "../../store/chatlist/actions";
+  chatsRef,
+  getChatListById,
+  getMessagesRefId,
+} from "../../services/firebase";
+import { set, remove } from "firebase/database";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,29 +22,42 @@ import ListItemButton from "@mui/material/ListItemButton";
 
 export const ChatList = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState("");
+  const [name, setName] = useState("");
+  // const [chatList, setChatList] = useState([]);
   const chatList = useSelector((state) => state.chatlist);
 
-  const handleAddChat = (name) => {
+  useEffect(() => {
+    dispatch(initChatFB());
+  }, []);
+
+  const handleAddChat = () => {
     const id = nanoid();
-    dispatch(addChat({ id, name }));
-    dispatch(createMessageChat(id));
-    setValue("");
+    set(getChatListById(id), {
+      id,
+      name,
+    });
+    set(getMessagesRefId(id), {
+      empty: true,
+    });
+    // dispatch(addChat({ id, name }));
+    // dispatch(createMessageChat(id));
+    setName("");
   };
 
   const handleDeleteChat = (chatId) => {
-    dispatch(deleteChat(chatId));
-    dispatch(deleteMessageChat(chatId));
+    remove(getChatListById(chatId));
+    // dispatch(deleteChat(chatId));
+    // dispatch(deleteMessageChat(chatId));
   };
 
   return (
     <>
       <input
         type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      <button onClick={() => handleAddChat(value)}>add chat</button>
+      <button onClick={handleAddChat}>add chat</button>
       <nav aria-label="main mailbox folders">
         <List>
           <Divider />
